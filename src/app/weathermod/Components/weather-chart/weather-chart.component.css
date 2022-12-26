@@ -1,0 +1,7 @@
+.fixSize{
+    display: block !important;
+    box-sizing: border-box !important;
+    padding: 0px;
+    height: 338px !important;
+    width: 620px !important;
+}

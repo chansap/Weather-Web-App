@@ -1,0 +1,236 @@
+<div>
+  <div *ngIf="loader">
+    <div class="lds-hourglass"></div>
+  </div>
+
+  <section class="container bg-light mt-3 mb-3 pb-2">
+    <div class="row">
+      <div class="col-md-6 mt-2">
+        <div class="form-floating">
+          <select
+            name="country"
+            id="country"
+            class="form-select"
+            (change)="saverange($event.target)"
+          >
+            <option selected disabled>Select Country</option>
+            <option
+              *ngFor="let country of countriesList"
+              [value]="country.name"
+            >
+              {{ country.name }}
+            </option>
+          </select>
+          <label for="country" class="form-label">Country</label>
+        </div>
+      </div>
+      <div class="col-md-6 mt-2" *ngIf="cityToggle">
+        <div class="form-floating">
+          <select
+            name="city"
+            id="city"
+            class="form-select"
+            (change)="selectedCity($event.target)"
+          >
+            <option selected disabled>Select City</option>
+            <option *ngFor="let city of citiesList" [value]="city">
+              {{ city }}
+            </option>
+          </select>
+          <label for="city" class="form-label">City</label>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="container my-2" *ngIf="weatherContainer">
+    <div class="row g-2">
+      <div class="col-md-5">
+        <div class="card bg-white">
+          <div class="card-body">
+            <div class="card-title">
+              <div class="row">
+                <div class="col-6">
+                  <div>
+                    <span class="text-danger small">
+                      {{ currentDate | date : "medium" }}
+                    </span>
+                  </div>
+                  <div>
+                    <h4>
+                      {{ currentStat?.name }}, {{ currentStat?.sys?.country }}
+                    </h4>
+                  </div>
+                  <div class="row mt-3">
+                    <span height="5%" width="3%">
+                      <img
+                        [src]="weatherpicURL"
+                        alt="current weather"
+                        class="small"
+                      />
+                      <span style="font-size: 2em; line-height: 2px"
+                        >{{ currentStat?.main?.temp - 273.15 | number }}
+                        <span>&#176;</span>C</span
+                      >
+                    </span>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="mt-2">
+                    <ul class="small">
+                      <li>
+                        <span
+                          >Feels Like:
+                          {{ currentStat?.main?.feels_like - 273.15 | number
+                          }}<span>&#176;</span>C</span
+                        >
+                      </li>
+                      <li>
+                        <span>{{ currentStat?.weather[0]?.main }}</span>
+                      </li>
+                      <li>
+                        <span
+                          >Details:
+                          {{ currentStat?.weather[0]?.description }}</span
+                        >
+                      </li>
+                      <li>
+                        <span
+                          >Min temp: <span>&nbsp;</span>
+                          <span style="color: #89cff3">
+                            {{ currentStat?.main?.temp_min - 273.15 | number
+                            }}<span>&#176;</span>C</span
+                          >
+                        </span>
+                      </li>
+                      <li>
+                        <span
+                          >Max temp:<span>&nbsp;</span>
+                          <span style="color: #ef7505">
+                            {{ currentStat?.main?.temp_max - 273.15 | number
+                            }}<span>&#176;</span>C</span
+                          ></span
+                        >
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <hr />
+            </div>
+            <div class="card-text">
+              <div id="detail_grp" class="mt-4">
+                <div class="row">
+                  <div class="col-6">
+                    <ul class="small">
+                      <li class="my-1">
+                        <span
+                          >Wind:
+                          {{ currentStat?.wind?.speed * 3.6 | number }} Km/hr
+                          Direction: {{ currentStat?.wind?.deg
+                          }}<span>&#176;</span>
+                        </span>
+                      </li>
+                      <li class="my-1">
+                        <span class="mx-1"
+                          ><img
+                            src="../../../../assets/icons8-pressure-24.png"
+                            alt="pressureLogo"
+                            class="img-fluid small"
+                          />{{ currentStat?.main?.pressure }} hPa
+                          <span>&nbsp;</span><span>&nbsp;</span>
+                        </span>
+                      </li>
+                      <li class="my-1">
+                        <span
+                          >Sun Rise: {{ sunriseDate | date : "short" }}</span
+                        >
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="col-6">
+                    <ul class="small">
+                      <li class="my-1">
+                        <span
+                          >Humidity: {{ currentStat?.main?.humidity }}%
+                          <span>&nbsp;</span><span>&nbsp;</span></span
+                        >
+                      </li>
+                      <li class="my-1">
+                        <span
+                          >Visibility:
+                          {{ currentStat?.visibility / 1000 }}KM</span
+                        >
+                      </li>
+                      <li *ngIf="currentStat?.wind?.gust" class="my-1">
+                        <span
+                          >Wind Gust: {{ currentStat?.wind?.gust
+                          }}<span>&nbsp;</span><span>&nbsp;</span></span
+                        >
+                      </li>
+                      <li class="my-1">
+                        <span>Sun Set: {{ sunsetDate | date : "short" }}</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-7">
+        <div class="card bg-white">
+          <app-weather-chart *ngIf="currentStat"></app-weather-chart>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="container my-2" *ngIf="weatherContainer">
+    <div class="card bg-white">
+      <app-accord-forecast></app-accord-forecast>
+    </div>
+  </section>
+
+  <footer *ngIf="weatherContainer">
+    <nav class="navbar navbar-light bg- white mt-5">
+      <div class="navbar-expand m-auto navbar-text">
+        Developed with <i class="fa fa-heart"></i> by <b>Saptarshi Chandra</b>
+      </div>
+    </nav>
+  </footer>
+  <!-- <label for="countrySelect">Choose the country:</label>
+  <div class="box">
+    <select
+      class="form-select"
+      aria-label="Select Country"
+      id="countrySelect"
+      (change)="saverange($event.target)"
+    >
+      <option selected disabled>Select Country</option>
+      <option *ngFor="let country of countriesList" [value]="country.name">
+        {{ country.name }}
+      </option>
+    </select>
+  </div> -->
+
+  <!-- <div class="box" *ngIf="cityToggle">
+    <select
+      class="form-select"
+      aria-label="Select your City"
+      id="countrySelect"
+      (change)="selectedCity($event.target)"
+    >
+      <option selected disabled>Select City</option>
+      <option *ngFor="let city of citiesList" [value]="city">
+        {{ city }}
+      </option>
+    </select>
+  </div> -->
+
+  <!-- <div class="container">
+    <img [src]="currentStat?.iconURL" alt="logo" />
+  </div> -->
+</div>
