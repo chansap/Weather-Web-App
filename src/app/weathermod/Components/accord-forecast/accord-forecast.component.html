@@ -1,5 +1,5 @@
 <div class="p-4">
-  <p class="lead">Forcast In Detail</p>
+  <p class="lead">Forcast In Details</p>
   <div *ngIf="forecastDataArray.length > 0">
     <div
       class="mt-1 pt-1"
@@ -15,8 +15,9 @@
         >
           <mat-expansion-panel-header>
             <mat-panel-title>
-              Feels like: <span>&nbsp;</span>
+              <!-- Feels like: <span>&nbsp;</span> -->
               <!-- {{ dayChart.main.feels_like - 273.15 | number : "1.2" }} -->
+
               <img
                 src="{{
                   'http://openweathermap.org/img/wn/' +
@@ -26,14 +27,31 @@
                 alt="logo"
                 class="img-fluid small"
               />
+
               <span
                 >{{ forecastData?.main?.feels_like - 273.15 | number
                 }}<span>&#176;</span>C</span
               >
-              <span class="small"
-                ><sup style="color: red">{{
-                  forecastData?.dt_txt | dateShortner
-                }}</sup></span
+
+              <span style="margin-left: 100px; font-size: 13px"
+                >Humidity..... {{ forecastData?.main?.humidity }}%</span
+              >
+
+              <span style="margin-left: 100px; font-size: 13px"
+                >Wind Speed.....
+                {{
+                  forecastData?.wind?.speed * 3.6 | number : "1.2-2"
+                }}Km/hr</span
+              >
+
+              <span style="margin-left: 100px; font-size: 13px"
+                >Cloudiness..... {{ forecastData?.clouds?.all }}%</span
+              >
+
+              <span class="small" style="margin-left: 110px"
+                ><sup style="color: red"
+                  >Date.....{{ forecastData?.dt_txt | dateShortner }}</sup
+                ></span
               >
             </mat-panel-title>
             <mat-panel-description>

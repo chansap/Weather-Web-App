@@ -86,13 +86,14 @@
                         >
                       </li>
                       <li>
-                        <span>{{ currentStat?.weather[0]?.main }}</span>
+                        <span
+                          >{{ currentStat?.weather[0]?.main }} ({{
+                            currentStat?.weather[0]?.description
+                          }})</span
+                        >
                       </li>
                       <li>
-                        <span
-                          >Details:
-                          {{ currentStat?.weather[0]?.description }}</span
-                        >
+                        <span>Cloudiness: {{ currentStat?.clouds?.all }}%</span>
                       </li>
                       <li>
                         <span
