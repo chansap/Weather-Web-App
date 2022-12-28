@@ -5,7 +5,16 @@
   }
 
 
-/* .accordHeader{
-  margin-left: 30px; 
-  font-size: 13px
-  } */
+.accordBody{
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+
+.half {
+  flex-grow: 0;
+  flex-shrink: 0;
+  flex-basis: 10%;
+}

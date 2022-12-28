@@ -54,11 +54,72 @@
                 ></span
               >
             </mat-panel-title>
-            <mat-panel-description>
-              <!-- Currently I am {{ panelOpenState ? "open" : "closed" }} -->
-            </mat-panel-description>
+            <mat-panel-description> </mat-panel-description>
           </mat-expansion-panel-header>
-          <p>I'm visible because I am open</p>
+          <!-- <p>I'm visible because I am open</p> -->
+          <div class="bg-white">
+            <p class="text-black-50 lead">In Details</p>
+            <div class="accordBody">
+              <p style="font-size: 13px" class="text-black-50 half">
+                {{ forecastData?.weather[0]?.main }}({{
+                  forecastData?.weather[0]?.description
+                }})
+              </p>
+              <p class="text-black-50 half" style="font-size: 13px">
+                Max Temp...
+                {{ forecastData?.main?.temp_max - 273.15 | number : "1.2-2"
+                }}<span>&#176;</span>C
+              </p>
+              <p class="text-black-50 half" style="font-size: 13px">
+                Min Temp...
+                {{ forecastData?.main?.temp_min - 273.15 | number : "1.2-2"
+                }}<span>&#176;</span>C
+              </p>
+              <p style="font-size: 13px" class="text-black-50 half">
+                Precipitation: {{ forecastData?.pop }}%
+              </p>
+              <p
+                *ngIf="forecastData?.sys?.pod == 'n'"
+                style="font-size: 13px"
+                class="text-black-50 half"
+              >
+                Part of the day :
+                <span *ngIf="forecastData?.sys?.pod == 'n'">Night Time</span>
+              </p>
+              <p
+                *ngIf="forecastData?.sys?.pod == 'd'"
+                style="font-size: 13px"
+                class="text-black-50 half"
+              >
+                Part of the day :
+                <span *ngIf="forecastData?.sys?.pod == 'd'">Day Time</span>
+              </p>
+              <p style="font-size: 13px" class="text-black-50 half">
+                Visibility:
+                {{ forecastData?.visibility / 1000 | number : "1.2-2" }}Km
+              </p>
+              <p
+                *ngIf="forecastData?.snow"
+                style="font-size: 13px"
+                class="text-black-50 half"
+              >
+                Snow volume:
+                {{forecastData?.snow?.['3h'] /10 | number : "1.2-2"
+                }}
+                cm
+              </p>
+              <p
+                *ngIf="forecastData?.rain"
+                style="font-size: 13px"
+                class="text-black-50 half"
+              >
+                Rain volume:
+                {{forecastData?.rain?.['3h'] /10 | number : "1.2-2"
+                }}
+                cm
+              </p>
+            </div>
+          </div>
         </mat-expansion-panel>
       </mat-accordion>
     </div>
