@@ -50,7 +50,7 @@ export class FirstDropComponent implements OnInit {
 
   selectedCity(event:any){
     this.loader = true
-    this.weatherContainer = true
+    
     console.log(event.value);
     this.place = event.value
     this.weatherService.getFullCityWeather(event.value).subscribe( (weatherData:any) =>{
@@ -62,7 +62,7 @@ export class FirstDropComponent implements OnInit {
        this.passServ.setCoord(this.currentStat.coord)
 
 
-
+       this.weatherContainer = true
       //  Date
 
       this.currentDate = this.dateChanger(this.currentStat.dt)
@@ -74,7 +74,7 @@ export class FirstDropComponent implements OnInit {
 
   dateChanger(epochTime:any){
     let milliseconds = epochTime;
-      var d = new Date(0); // The 0 there is the key, which sets the date to the epoch
+      var d = new Date(0); 
       d.setUTCSeconds(milliseconds);
       // console.log("Date ->>",d);
       return d

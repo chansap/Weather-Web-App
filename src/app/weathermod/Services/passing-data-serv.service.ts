@@ -16,6 +16,10 @@ export class PassingDataServService {
     this.coord.next(setCoord)
   }
 
+  getOnlyCoor(){
+    return this.coord.asObservable()
+  }
+
   getCoor(){
     return this.coord.asObservable().pipe(
       // tap( (data:any) => console.log("In passing Serv",data)),

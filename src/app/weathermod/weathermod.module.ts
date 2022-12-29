@@ -9,6 +9,7 @@ import { AccordForecastComponent } from './Components/accord-forecast/accord-for
 import { MatExpansionModule } from '@angular/material/expansion';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { DateShortnerPipe } from './Pipes/date-shortner.pipe';
+import { MapComponent } from './Components/map/map.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { DateShortnerPipe } from './Pipes/date-shortner.pipe';
     FirstDropComponent,
     WeatherChartComponent,
     AccordForecastComponent,
-    DateShortnerPipe
+    DateShortnerPipe,
+    MapComponent
   ],
   imports: [
     CommonModule,
